@@ -2,6 +2,7 @@ package br.com.lordoftests.model;
 
 import br.com.lordoftests.model.interfaces.ISoldado;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Personagem implements ISoldado {
@@ -21,11 +22,11 @@ public class Personagem implements ISoldado {
 
     private Integer defesa = 10;
 
-    private List<Item> itens;
+    private List<Item> itens = new ArrayList<>();
 
     @Override
     public void adicionarItem(Item item) {
-
+        itens.add(item);
     }
 
     @Override

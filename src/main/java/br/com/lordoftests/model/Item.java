@@ -11,4 +11,12 @@ public class Item {
     private Integer defesa;
 
     private Integer vida;
+
+    public Item(String nome, Integer preco, Integer damage, Integer defesa, Integer vida) {
+        this.nome = nome;
+        this.preco = preco;
+        this.damage = damage;
+        this.defesa = defesa;
+        this.vida = vida;
+    }
 }
