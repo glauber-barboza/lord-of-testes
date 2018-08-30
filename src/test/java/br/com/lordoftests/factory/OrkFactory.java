@@ -12,7 +12,6 @@ public class OrkFactory {
 
         public Builder(){
             orkBuilder = new Ork(1000, 1000, 50, 100);
-
         }
 
         public Builder comEscudo(){
