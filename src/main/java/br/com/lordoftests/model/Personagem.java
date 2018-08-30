@@ -7,22 +7,18 @@ import java.util.List;
 
 public class Personagem implements ISoldado {
 
-    public Personagem(Integer dinheiro, Integer vida, Integer damage, Integer defesa) {
-        this.dinheiro += dinheiro;
-        this.vida += vida;
-        this.damage += damage;
-        this.defesa += defesa;
-    }
-
-    private Integer dinheiro = 500;
-
-    private Integer vida = 1000;
-
-    private Integer damage = 50;
-
-    private Integer defesa = 10;
-
+    private Integer dinheiro;
+    private Integer vida;
+    private Integer damage;
+    private Integer defesa;
     private List<Item> itens = new ArrayList<>();
+
+    public Personagem(Integer dinheiro, Integer vida, Integer damage, Integer defesa) {
+        this.dinheiro = dinheiro;
+        this.vida = vida;
+        this.damage = damage;
+        this.defesa = defesa;
+    }
 
     @Override
     public void adicionarItem(Item item) {
@@ -30,7 +26,41 @@ public class Personagem implements ISoldado {
     }
 
     @Override
-    public Integer receberAttack(Integer damage) {
+    public void atacar(ISoldado soldado) {
+        soldado.receberAtack(this.getDano());
+        this.receberAtack(soldado.getDano());
+    }
+
+    @Override
+    public void receberAtack(Integer dano) {
+        Integer defesaComItens = this.defesa;
+        for (Item i:itens) defesaComItens += i.getDefesa();
+
+        // if(this.vida < 300) tomarPotion();
+
+        if(defesaComItens < dano) this.vida -=  dano - defesaComItens;
+    }
+
+    @Override
+    public Integer getDano() {
+        Integer danoComItens = this.damage;
+        for (Item i:itens) danoComItens += i.getDamage();
+
+        return danoComItens;
+    }
+
+    public Integer getVida(){
         return vida;
+    }
+
+    private void tomarPotion(){
+        Integer potion;
+        //TODO validar se exste potion
+        potion = this.itens.stream()
+                .filter(t -> t.getNome().equals("Potion"))
+                .findFirst()
+                .get()
+                .getVida();
+        this.vida += potion ;
     }
 }

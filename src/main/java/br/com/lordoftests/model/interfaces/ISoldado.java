@@ -6,7 +6,12 @@ public interface ISoldado {
 
     void adicionarItem(Item item);
 
-    //Retornar a vida
-    Integer receberAttack(Integer damage);
+    void atacar(ISoldado soldado);
+
+    void receberAtack(Integer dano);
+
+    Integer getDano();
+
+    Integer getVida();
 
 }
