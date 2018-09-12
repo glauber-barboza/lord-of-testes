@@ -19,6 +19,19 @@ public class OrkFactory {
             return this;
         }
 
+        public Builder withMachado(){
+            orkBuilder.adicionarItem(ItemFactory.machado());
+            return this;
+        }
+
+        public Builder withFullSet(){
+            orkBuilder.adicionarItem(ItemFactory.capacete());
+            orkBuilder.adicionarItem(ItemFactory.peito());
+            orkBuilder.adicionarItem(ItemFactory.calca());
+            orkBuilder.adicionarItem(ItemFactory.botas());
+            return this;
+        }
+
         public Ork build(){return orkBuilder; }
     }
 }

@@ -20,6 +20,8 @@ public class GuerraServiceTest {
     public void atacarOrk() {
         Ork ork = new OrkFactory.Builder()
                 .withEscudo()
+                .withFullSet()
+                .withMachado()
                 .build();
         Elfo elfo = new Elfo(1000, 500, 500, 0);
 
