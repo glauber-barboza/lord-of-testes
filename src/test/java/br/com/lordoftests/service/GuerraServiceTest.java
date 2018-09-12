@@ -17,10 +17,12 @@ public class GuerraServiceTest {
     private GuerraService guerraService;
 
     @Test
-    public void atacarOrk(){
-        Ork ork = new OrkFactory.Builder().build();
-        Elfo elfo= new Elfo(1000,500,120,0);
+    public void atacarOrk() {
+        Ork ork = new OrkFactory.Builder()
+                .withEscudo()
+                .build();
+        Elfo elfo = new Elfo(1000, 500, 500, 0);
 
-        guerraService.matarOrk(ork,elfo);
+        guerraService.matarOrk(ork, elfo);
     }
 }

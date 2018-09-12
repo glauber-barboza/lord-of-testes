@@ -4,6 +4,7 @@ import br.com.lordoftests.model.interfaces.ISoldado;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Personagem implements ISoldado {
 
@@ -22,6 +23,7 @@ public class Personagem implements ISoldado {
 
     @Override
     public void adicionarItem(Item item) {
+        dinheiro = dinheiro - item.getPreco();
         itens.add(item);
     }
 
@@ -36,7 +38,7 @@ public class Personagem implements ISoldado {
         Integer defesaComItens = this.defesa;
         for (Item i:itens) defesaComItens += i.getDefesa();
 
-        // if(this.vida < 300) tomarPotion();
+         if(this.vida < 300) tomarPotion();
 
         if(defesaComItens < dano) this.vida -=  dano - defesaComItens;
     }
@@ -54,13 +56,16 @@ public class Personagem implements ISoldado {
     }
 
     private void tomarPotion(){
-        Integer potion;
+        Integer potion = 0;
         //TODO validar se exste potion
-        potion = this.itens.stream()
+        Optional<Item> item = this.itens.stream()
                 .filter(t -> t.getNome().equals("Potion"))
-                .findFirst()
-                .get()
-                .getVida();
+                .findFirst();
+
+        if(item.isPresent()){
+            potion = item.get().getVida();
+        }
+
         this.vida += potion ;
     }
 }
