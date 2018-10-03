@@ -1,17 +1,14 @@
 package br.com.lordoftests.factory;
 
-import br.com.lordoftests.model.Item;
 import br.com.lordoftests.model.Ork;
 
 public class OrkFactory {
-
-    private Ork ork;
 
     public static class Builder{
         private Ork orkBuilder;
 
         public Builder(){
-            orkBuilder = new Ork(1000, 1000, 50, 100);
+            orkBuilder = new Ork(1050, 1000, 52, 100);
         }
 
         public Builder withEscudo(){
@@ -32,6 +29,20 @@ public class OrkFactory {
             return this;
         }
 
-        public Ork build(){return orkBuilder; }
+        public Builder registrarNome(String nome){
+            orkBuilder.setNome(nome);
+            return this;
+        }
+
+        public Ork build(){
+            String ork = String.format("Ork %s: Vida: %s Dano: %s Defesa: %s Pilas: %s",
+                    orkBuilder.getNome(),
+                    orkBuilder.getVida(),
+                    orkBuilder.getDano(),
+                    orkBuilder.getDefesa(),
+                    orkBuilder.getPila());
+            System.out.println(ork);
+            return orkBuilder;
+        }
     }
 }

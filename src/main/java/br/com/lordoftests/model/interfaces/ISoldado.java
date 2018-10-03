@@ -14,4 +14,10 @@ public interface ISoldado {
 
     Integer getVida();
 
+    Integer getDefesa();
+
+    Integer getPila();
+
+    String getNome();
+
 }

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public class Personagem implements ISoldado {
 
+    private String nome;
     private Integer dinheiro;
     private Integer vida;
     private Integer damage;
@@ -24,13 +25,14 @@ public class Personagem implements ISoldado {
     @Override
     public void adicionarItem(Item item) {
         dinheiro = dinheiro - item.getPreco();
+        if(dinheiro < 0) throw new RuntimeException(nome + "não tem pila para comprar o item!!! item:"+ item.getNome());
         itens.add(item);
     }
 
     @Override
     public void atacar(ISoldado soldado) {
         soldado.receberAtack(this.getDano());
-        this.receberAtack(soldado.getDano());
+        if(this.getVida() > 0) this.receberAtack(soldado.getDano());
     }
 
     @Override
@@ -51,21 +53,43 @@ public class Personagem implements ISoldado {
         return danoComItens;
     }
 
-    public Integer getVida(){
-        return vida;
+    @Override
+    public Integer getDefesa() {
+        Integer defesaComItens = this.defesa;
+        for (Item i:itens) defesaComItens += i.getDefesa();
+
+        return defesaComItens;
     }
 
     private void tomarPotion(){
         Integer potion = 0;
-        //TODO validar se exste potion
         Optional<Item> item = this.itens.stream()
-                .filter(t -> t.getNome().equals("Potion"))
+                .filter(t -> t.getNome().equals("potion"))
                 .findFirst();
 
         if(item.isPresent()){
             potion = item.get().getVida();
+            itens.remove(item.get());
+            Integer vida = this.vida + potion;
+            System.out.println(nome +" Tomou Potion, Vida: "+ vida);
         }
 
         this.vida += potion ;
+    }
+
+    public Integer getVida(){
+        return vida;
+    }
+
+    public Integer getPila(){
+        return dinheiro;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
